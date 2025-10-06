@@ -95,11 +95,7 @@ The script will:
 - Install Python deps (`pytricia`, `psutil`)
 - Run the benchmark for both IPv4 and IPv6 (1M prefixes each, 5M probes)
 
-Output example (one line per family):
-
-```text
-{'family': 'ipv4', 'prefixes': 1000000, 'insert_seconds': 3.812345, 'insert_qps': 262277.44, 'lookup_probes': 5000000, 'lookup_seconds': 2.104221, 'lookup_qps': 2376544.87, 'rss_after_inserts_bytes': 1234567890, 'rss_delta_bytes': 987654321, 'rss_delta_mb': 942.08, 'lookups_found': 4923456}
-```
+Look for an output example inside RESULT.md
 
 Notes:
 - The Python memory numbers report process RSS via `psutil`, which differs from Go's `runtime.MemStats` but is a practical resident memory proxy.
