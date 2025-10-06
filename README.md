@@ -73,3 +73,34 @@ go test -bench='^BenchmarkMapTrie(Insert1M|Lookup1M)$' -benchmem ./...
 # Patricia 1M insert and lookup
 go test -bench='^BenchmarkPatricia(Insert1M|Lookup1M)$' -benchmem ./...
 ```
+
+### Python (PyTricia) 1M benchmark
+
+This repo also includes a Python benchmark for the `PyTricia` Patricia trie [`jsommers/pytricia`](https://github.com/jsommers/pytricia). It mirrors the Go 1M scale by generating 1,000,000 prefixes (both IPv4 and IPv6), measuring:
+
+- Insert throughput (QPS)
+- Lookup throughput (QPS)
+- Resident memory after inserts (RSS) and delta
+
+Run via uv-managed virtualenv (script handles setup automatically):
+
+```bash
+chmod +x run_pytricia_bench_uv.sh
+./run_pytricia_bench_uv.sh
+```
+
+The script will:
+- Ensure `uv` is available (installs it if missing)
+- Create venv at `.venv-pytricia`
+- Install Python deps (`pytricia`, `psutil`)
+- Run the benchmark for both IPv4 and IPv6 (1M prefixes each, 5M probes)
+
+Output example (one line per family):
+
+```text
+{'family': 'ipv4', 'prefixes': 1000000, 'insert_seconds': 3.812345, 'insert_qps': 262277.44, 'lookup_probes': 5000000, 'lookup_seconds': 2.104221, 'lookup_qps': 2376544.87, 'rss_after_inserts_bytes': 1234567890, 'rss_delta_bytes': 987654321, 'rss_delta_mb': 942.08, 'lookups_found': 4923456}
+```
+
+Notes:
+- The Python memory numbers report process RSS via `psutil`, which differs from Go's `runtime.MemStats` but is a practical resident memory proxy.
+- Prefix generation and probe address distributions match the Go 1M patterns (seeded RNG, IPv4 8..32, IPv6 32..128).

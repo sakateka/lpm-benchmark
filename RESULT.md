@@ -87,3 +87,22 @@ BenchmarkPatriciaConcurrentLookup-20                      	159143098	         7.
 PASS
 ok  	github.com/sakateka/lpm-benchmark	81.103s
 ```
+
+
+Pytricia results
+```
+PyTricia IPV4 benchmark
+  prefixes:         1,000,000
+  insert:           0.133061 s  |  7,515,372.42 ops/s  |  133.06 ns/op
+  lookup probes:    5,000,000
+  lookup:           2.245650 s  |  2,226,527.29 ops/s  |  449.13 ns/op  |  found=350,000
+  RSS after insert: 291,655,680 B (278.14 MB)
+  RSS delta:        269,025,280 B (256.56 MB)
+PyTricia IPV6 benchmark
+  prefixes:         1,000,000
+  insert:           0.267654 s  |  3,736,165.93 ops/s  |  267.65 ns/op
+  lookup probes:    5,000,000
+  lookup:           2.779728 s  |  1,798,737.35 ops/s  |  555.95 ns/op  |  found=5,000,000
+  RSS after insert: 361,086,976 B (344.36 MB)
+  RSS delta:        304,087,040 B (290.00 MB)
+```
